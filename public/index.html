@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags for character set and viewport settings -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.5">
+    <!-- Title of the webpage -->
+    <title>Subscribe</title>
+</head>
+<body>
+    <!-- Form for user subscription with email input -->
+    <form id="subscribeForm">
+        <!-- Input field for the email address with placeholder and required validation -->
+        <input type="email" id="email" placeholder="Enter your email" required>
+        <!-- Submit button for the form -->
+        <button type="submit">Subscribe</button>
+    </form>
+
+    <!-- JavaScript code to handle form submission -->
+    <script>
+        // Add an event listener to the form for the 'submit' event
+        document.getElementById('subscribeForm').addEventListener('submit', function(event) {
+            // Prevent the default form submission behavior
+            event.preventDefault();
+            // Get the email value from the input field
+            const email = document.getElementById('email').value;
+            // Send a POST request to the '/subscribe' endpoint with the email in the request body
+            fetch('/subscribe', {
+                method: 'POST', // HTTP method
+                headers: {
+                    'Content-Type': 'application/json' // Content type of the request
+                },
+                body: JSON.stringify({ email }) // Convert the email to a JSON string
+            })
+            .then(response => response.text()) // Parse the response text
+            .then(data => alert(data)) // Alert the user with the response data
+            .catch(error => console.error('Error:', error)); // Log any errors to the console
+        });
+    </script>
+</body>
+</html>
